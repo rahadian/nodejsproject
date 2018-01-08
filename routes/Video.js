@@ -1,8 +1,8 @@
 var express = require('express');
 var router = express.Router();
-var Task = require('../models/Popular');
+var Task = require('../models/Video');
 
-router.get('/:year?/:month?/:day?',function(req,res,next){   
+router.get('/:year?/:month?/:day?',function(req,res,next){
     if(req.params.year,req.params.day-1,req.params.month){
         var dateFormat = new Date(Date.UTC(req.params.year,req.params.day-1,req.params.month,0,0));
         Task.getTaskById(dateFormat,function(err,rows){

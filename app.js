@@ -14,6 +14,8 @@ var Artikels = require('./routes/Artikels');
 var Infografis = require('./routes/Infografis');
 var Bpilihan = require('./routes/Bpilihan');
 var Popular = require('./routes/Popular');
+var Video = require('./routes/Video');
+var Photo = require('./routes/Photo');
 var app = express();
 
 // view engine setup
@@ -37,6 +39,8 @@ app.use('/Artikels',Artikels);
 app.use('/Infografis',Infografis);
 app.use('/Bpilihan',Bpilihan);
 app.use('/Popular',Popular);
+app.use('/Video',Video);
+app.use('/Photo',Photo);
 // catch 404 and forward to error handler
 app.use(function(req, res, next) {
   var err = new Error('Not Found');
