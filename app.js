@@ -17,6 +17,7 @@ var Popular = require('./routes/Popular');
 var Video = require('./routes/Video');
 var Photo = require('./routes/Photo');
 var Kolom = require('./routes/Kolom');
+var Kategori = require('./routes/Kategori');
 var app = express();
 
 // view engine setup
@@ -43,6 +44,7 @@ app.use('/Popular',Popular);
 app.use('/Video',Video);
 app.use('/Photo',Photo);
 app.use('/Kolom',Kolom);
+app.use('/Kategori',Kategori);
 // catch 404 and forward to error handler
 app.use(function(req, res, next) {
   var err = new Error('Not Found');
