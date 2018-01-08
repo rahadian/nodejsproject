@@ -16,6 +16,7 @@ var Bpilihan = require('./routes/Bpilihan');
 var Popular = require('./routes/Popular');
 var Video = require('./routes/Video');
 var Photo = require('./routes/Photo');
+var Kolom = require('./routes/Kolom');
 var app = express();
 
 // view engine setup
@@ -41,6 +42,7 @@ app.use('/Bpilihan',Bpilihan);
 app.use('/Popular',Popular);
 app.use('/Video',Video);
 app.use('/Photo',Photo);
+app.use('/Kolom',Kolom);
 // catch 404 and forward to error handler
 app.use(function(req, res, next) {
   var err = new Error('Not Found');
