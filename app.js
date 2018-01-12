@@ -1,3 +1,4 @@
+var cors = require('cors');
 var express = require('express');
 var path = require('path');
 var favicon = require('serve-favicon');
@@ -18,6 +19,7 @@ var Video = require('./routes/Video');
 var Photo = require('./routes/Photo');
 var Kolom = require('./routes/Kolom');
 var Kategori = require('./routes/Kategori');
+var Cors = require('./routes/Cors');
 var app = express();
 
 // view engine setup
@@ -26,7 +28,10 @@ app.set('view engine', 'jade');
 //app.set('view engine','ejs');
 // uncomment after placing your favicon in /public
 //app.use(favicon(path.join(__dirname, 'public', 'favicon.ico')));
-app.use(cors());
+//app.use(cors({
+//	origin:myorigin.tldm
+//	allowedHeader:['Accept-Version', 'Authorization', 'Credentials', 'Content-Type']
+//});
 app.use(logger('dev'));
 app.use(bodyParser.json());
 app.use(bodyParser.urlencoded({ extended: false }));
@@ -45,6 +50,31 @@ app.use('/Video',Video);
 app.use('/Photo',Photo);
 app.use('/Kolom',Kolom);
 app.use('/Kategori',Kategori);
+app.use('/Cors',Cors);
+
+app.use(function(req, res, next) {
+   res.header("Access-Control-Allow-Origin", "*");
+   res.header('Access-Control-Allow-Methods', 'DELETE, PUT, GET, POST, JSON');
+   res.header("Access-Control-Allow-Headers", "Origin, X-Requested-With, Content-Type, Accept");
+   next();
+});
+
+app.all('*', function(req, res, next) {
+       res.header("Access-Control-Allow-Origin", "*");
+       res.header("Access-Control-Allow-Headers", "X-Requested-With");
+       res.header('Access-Control-Allow-Headers', 'Content-Type');
+       next();
+});
+app.options('*', cors()); 
+
+app.all('/*', function (req, res, next) {
+    res.header("Access-Control-Allow-Origin", "http://localhost:8080");
+    res.header('Access-Control-Allow-Methods', 'GET,PUT,POST,DELETE');
+    res.header("Access-Control-Allow-Headers", "X-Requested-With,     Content-Type");
+    next();
+});
+
+
 // catch 404 and forward to error handler
 app.use(function(req, res, next) {
   var err = new Error('Not Found');
@@ -62,5 +92,29 @@ app.use(function(err, req, res, next) {
   res.status(err.status || 500);
   res.render('error');
 });
+
+app.use(function(req, res, next) {
+  res.header("Access-Control-Allow-Origin", "*");
+  res.header("Access-Control-Allow-Headers", "Origin, X-Requested-With, Content-Type, Accept");
+  next();
+});
+
+app.use(function(req, res, next) {
+  var allowedOrigins = ['http://127.0.0.1:1337', 'http://localhost:1337'];
+  var origin = req.headers.origin;
+  if(allowedOrigins.indexOf(origin) > -1){
+       res.setHeader('Access-Control-Allow-Origin', origin);
+  }
+  //res.header('Access-Control-Allow-Origin', 'http://127.0.0.1:1337');
+  res.header('Access-Control-Allow-Methods', 'GET, PUT, OPTIONS');
+  res.header('Access-Control-Allow-Headers', 'Content-Type, Authorization');
+  res.header('Access-Control-Allow-Credentials', true);
+  return next();
+});
+
+
+
+
+
 
 module.exports = app;

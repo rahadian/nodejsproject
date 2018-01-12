@@ -3,7 +3,8 @@
 /**
  * Module dependencies.
  */
-
+var cors = require('cors');
+var express = require('express');
 var app = require('../app');
 var debug = require('debug')('nodejsrilis:server');
 var http = require('http');
@@ -15,7 +16,13 @@ var fs = require('fs');
 
 var port = normalizePort(process.env.PORT || '1337');
 app.set('port', port);
+app.use(cors());
 
+app.get('/', function (req, res) { 
+  res.writeHead(200, {'Content-Type': 'text/plain'});
+  contents = fs.readFileSync('sliderImages.json', 'utf8');
+  res.end(contents);
+});
 /**
  * Create HTTP server.
  */
