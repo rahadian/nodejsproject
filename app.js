@@ -17,9 +17,10 @@ var Bpilihan = require('./routes/Bpilihan');
 var Popular = require('./routes/Popular');
 var Video = require('./routes/Video');
 var Photo = require('./routes/Photo');
+var Profile = require('./routes/Profile');
 var Kolom = require('./routes/Kolom');
 var Kategori = require('./routes/Kategori');
-var Cors = require('./routes/Cors');
+//var Cors = require('./routes/Cors');
 var app = express();
 
 // view engine setup
@@ -28,10 +29,7 @@ app.set('view engine', 'jade');
 //app.set('view engine','ejs');
 // uncomment after placing your favicon in /public
 //app.use(favicon(path.join(__dirname, 'public', 'favicon.ico')));
-//app.use(cors({
-//	origin:myorigin.tldm
-//	allowedHeader:['Accept-Version', 'Authorization', 'Credentials', 'Content-Type']
-//});
+app.use(cors());
 app.use(logger('dev'));
 app.use(bodyParser.json());
 app.use(bodyParser.urlencoded({ extended: false }));
@@ -48,31 +46,32 @@ app.use('/Bpilihan',Bpilihan);
 app.use('/Popular',Popular);
 app.use('/Video',Video);
 app.use('/Photo',Photo);
+app.use('/Profile',Profile);
 app.use('/Kolom',Kolom);
 app.use('/Kategori',Kategori);
-app.use('/Cors',Cors);
+//app.use('/Cors',Cors);
 
 app.use(function(req, res, next) {
    res.header("Access-Control-Allow-Origin", "*");
-   res.header('Access-Control-Allow-Methods', 'DELETE, PUT, GET, POST');
+   res.header('Access-Control-Allow-Methods', 'GET, PUT, POST, DELETE');
    res.header("Access-Control-Allow-Headers", "Origin, X-Requested-With, Content-Type, Accept");
    next();
 });
 
-app.all('*', function(req, res, next) {
-       res.header("Access-Control-Allow-Origin", "*");
-       res.header("Access-Control-Allow-Headers", "X-Requested-With");
-       res.header('Access-Control-Allow-Headers', 'Content-Type');
-       next();
-});
+//app.all('*', function(req, res, next) {
+//       res.header("Access-Control-Allow-Origin", "*");
+//       res.header("Access-Control-Allow-Headers", "X-Requested-With");
+//       res.header('Access-Control-Allow-Headers', 'Content-Type');
+//       next();
+//});
 app.options('*', cors()); 
 
-app.all('/*', function (req, res, next) {
-    res.header("Access-Control-Allow-Origin", "http://localhost:8080");
-    res.header('Access-Control-Allow-Methods', 'GET,PUT,POST,DELETE');
-    res.header("Access-Control-Allow-Headers", "X-Requested-With,     Content-Type");
-    next();
-});
+//app.all('/*', function (req, res, next) {
+//    res.header("Access-Control-Allow-Origin", "http://localhost:8080");
+//    res.header('Access-Control-Allow-Methods', 'GET,PUT,POST,DELETE');
+//    res.header("Access-Control-Allow-Headers", "X-Requested-With,     Content-Type");
+//    next();
+//});
 
 
 // catch 404 and forward to error handler
@@ -93,11 +92,11 @@ app.use(function(err, req, res, next) {
   res.render('error');
 });
 
-app.use(function(req, res, next) {
-  res.header("Access-Control-Allow-Origin", "*");
-  res.header("Access-Control-Allow-Headers", "Origin, X-Requested-With, Content-Type, Accept");
-  next();
-});
+//app.use(function(req, res, next) {
+//  res.header("Access-Control-Allow-Origin", "*");
+//  res.header("Access-Control-Allow-Headers", "Origin, X-Requested-With, Content-Type, Accept");
+//  next();
+//});
 
 app.use(function(req, res, next) {
   var allowedOrigins = ['http://127.0.0.1:1337', 'http://localhost:1337'];

@@ -2,10 +2,10 @@ var express = require('express');
 var router = express.Router();
 var Task = require('../models/Photo');
 
-router.get('/:year?/:month?/:day?/:idsection?',function(req,res,next){
+router.get('/:idsection?',function(req,res,next){
     if(req.params.year,req.params.day-1,req.params.month,req.params.idsection){
-        var dateFormat = new Date(Date.UTC(req.params.year,req.params.day-1,req.params.month,0,0));
-        Task.getTaskById(dateFormat,req.params.idsection,function(err,rows){
+        // var dateFormat = new Date(Date.UTC(req.params.year,req.params.day-1,req.params.month,0,0));
+        Task.getTaskById(req.params.idsection,function(err,rows){
             
             if(err)
             {
